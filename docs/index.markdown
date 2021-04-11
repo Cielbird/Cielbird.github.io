@@ -3,5 +3,4 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 ---
 
-I'm an indie developer, avid programmer, and artist. This is a new website, 
-so there isn't much posted yet.
+I'm an indie developer, avid programmer, and artist. This is a new website, so there isn't much posted yet.
