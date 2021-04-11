@@ -21,7 +21,6 @@
 title: Guilhem Ane
 email: guilhem.ane3@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  My github pages website.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://cielbird.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
 # twitter_username: jekyllrb
