@@ -3,13 +3,11 @@ title: Portfolio
 permalink: /portfolio/
 ---
 
-*My work and this page's contents are confidential. No part of this portfolio may be copied.*
-
 # Portfolio
 
 ## Introduction
 
-I'm an indie game developer, avid programmer, and artist. I am experienced in Java, C#, Unity 3D, Blender, and git. I am dedicated to making innovative and artistic products. In the next 5 years I plan to further my education in computer science, widen my skilset in development, and publish more games.
+I'm an indie game developer, avid programmer, and artist. I am experienced in Java, C#, Unity 3D, Blender, and git. I am dedicated to making innovative and artistic products. In the next 5 years I plan to further my education in computer science, widen my skillset in development, and publish more games.
 
 My resume is linked [here](https://cielbird.github.io/resume-english.pdf)
 
