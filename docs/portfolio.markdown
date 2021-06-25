@@ -33,10 +33,16 @@ This is an untitled, in-progress innkeeper game. The player is an innkeeper who 
 
 The game and its assets were made entirely by me.
 
+### Shattered
+
+<iframe frameborder="0" src="https://itch.io/embed/1083181" width="552" height="167"><a href="https://etn-25.itch.io/shattered">Shattered by ETN, Kuroyasha, GrafIst, Tintoy1, YaBoiCielbird, thunder725</a></iframe>
+
+A game where the player needs to gather soul fragments by connecting with them and gravitating towards them. The game was designed and developed with Unity 3D in less than 48 hours by two programmers (including me) and four artists for the GMTK 2021 game jam. I coded the main player controller, most of the UI, and the scene management. The theme was chosen by GMTK. 
+
 
 ### Out of Controls
 
-<iframe frameborder="0" src="https://itch.io/embed/697773?border_width=4&amp;bg_color=32435a&amp;fg_color=ffffff&amp;link_color=ff2020&amp;border_color=a9b8d1" width="558" height="173"><a href="https://yaboicielbird.itch.io/out-of-controls">Out Of Controls by YaBoiCielbird, TKDR</a></iframe>
+<iframe frameborder="0" src="https://itch.io/embed/697773?border_width=4&amp;bg_color=32435a&amp;fg_color=ffffff&amp;link_color=ff2020&amp;border_color=a9b8d1" width="558" height="173"><a href="https://etn-25.itch.io/shattered">Out Of Controls by YaBoiCielbird, TKDR</a></iframe>
 
 A game based on the idea that the payer's controls are their health-bar. The controls can be disabled by enemies, and when all the controls are destroyed, the player dies. I designed the UI and coded most of the game logic. The game was designed and developed with Unity 3D in less than 48 hours in a team of two for the GMTK 2020 game jam. The theme was chosen by GMTK. 
 

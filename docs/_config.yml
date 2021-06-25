@@ -28,7 +28,7 @@ github_username:  Cielbird
 youtube_username:  Cielbird
 
 # Build settings
-theme: jekyll-theme-minimal
+theme: minima
 plugins:
   - jekyll-feed
 
