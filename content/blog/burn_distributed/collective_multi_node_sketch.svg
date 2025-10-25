@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="293.53683mm"
+   height="110.5267mm"
+   viewBox="0 0 293.53683 110.5267"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (c4e8f9e, 2021-05-24)"
+   sodipodi:docname="collective_multi_node_sketch.svg"
+   inkscape:export-filename="/Users/guilhemane/tracel/burn_collective.png"
+   inkscape:export-xdpi="200"
+   inkscape:export-ydpi="200"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.0642467"
+     inkscape:cx="471.22533"
+     inkscape:cy="157.85814"
+     inkscape:window-width="1440"
+     inkscape:window-height="872"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer3"
+     inkscape:snap-global="false" />
+  <defs
+     id="defs2">
+    <marker
+       style="overflow:visible"
+       id="Arrow1Lend"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path27011" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Lstart"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lstart"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path27008" />
+    </marker>
+  </defs>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="background"
+     transform="translate(1.2324218e-6,-3.2760081)"
+     style="display:none">
+    <rect
+       style="fill:#1a1d22;fill-opacity:1;stroke:none;stroke-width:0.696197;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:0.696197, 0.696197;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect45886"
+       width="293.53683"
+       height="110.5267"
+       x="-1.2324218e-06"
+       y="3.2760081"
+       inkscape:export-filename="/Users/guilhemane/Documents/Cielbird.github.io/content/blog/burn_distributed/burn_collective.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200" />
+  </g>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(52.027314,-85.813171)">
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#f3b37a;stroke-width:0.379283;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect846-4-0-7-1"
+       width="97.099182"
+       height="51.049988"
+       x="-31.138744"
+       y="125.84265"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#fa8b22;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:4.73272;stroke-opacity:1"
+       id="rect846-7-5"
+       width="30.447155"
+       height="11.770697"
+       x="-26.566883"
+       y="158.04623"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.27258px;line-height:1.25;font-family:'Al Bayan';-inkscape-font-specification:'Al Bayan';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+       x="-19.743816"
+       y="174.20837"
+       id="text2480-3-5-8-0"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan2478-9-5-4-2"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable Italic';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+         x="-19.743816"
+         y="174.20837">Thread 1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.27258px;line-height:1.25;font-family:'Al Bayan';-inkscape-font-specification:'Al Bayan';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+       x="-18.477133"
+       y="165.31381"
+       id="text2480-3-5-8-7-0"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan2478-9-5-4-4-3"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable Bold';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+         x="-18.477133"
+         y="165.31381">Peer 1</tspan></text>
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#fa8b22;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:4.73272;stroke-opacity:1"
+       id="rect846-7-6-8"
+       width="30.447155"
+       height="11.770697"
+       x="30.613642"
+       y="158.9754"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.27258px;line-height:1.25;font-family:'Al Bayan';-inkscape-font-specification:'Al Bayan';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+       x="37.436707"
+       y="175.13757"
+       id="text2480-3-5-8-4-2"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan2478-9-5-4-5-1"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Satoshi;-inkscape-font-specification:'Satoshi Italic';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+         x="37.436707"
+         y="175.13757">Thread 2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.27258px;line-height:1.25;font-family:'Al Bayan';-inkscape-font-specification:'Al Bayan';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+       x="38.703392"
+       y="166.24298"
+       id="text2480-3-5-8-7-1-6"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan2478-9-5-4-4-2-8"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Satoshi;-inkscape-font-specification:'Satoshi Bold';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+         x="38.703392"
+         y="166.24298">Peer 2</tspan></text>
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#fa8b22;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1, 0.5;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect11050-7-3"
+       width="53.396824"
+       height="19.243185"
+       x="-4.557014"
+       y="129.69862"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.37179px;line-height:1.25;font-family:'Al Bayan';-inkscape-font-specification:'Al Bayan';fill:#777878;fill-opacity:1;stroke-width:0.879215;stroke-miterlimit:4;stroke-dasharray:none"
+       x="4.0837727"
+       y="133.69653"
+       id="text12278-9-2"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan12276-4-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable';fill:#777878;fill-opacity:1;stroke-width:0.879215;stroke-miterlimit:4;stroke-dasharray:none"
+         x="4.0837727"
+         y="133.69653">Glocal Collective Client</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.37179px;line-height:1.25;font-family:'Al Bayan';-inkscape-font-specification:'Al Bayan';fill:#777878;fill-opacity:1;stroke-width:0.879215;stroke-miterlimit:4;stroke-dasharray:none"
+       x="4.1281452"
+       y="146.94777"
+       id="text12278-9-0-7"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan12276-4-4-3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable';fill:#777878;fill-opacity:1;stroke-width:0.879215;stroke-miterlimit:4;stroke-dasharray:none"
+         x="4.1281452"
+         y="146.94777">Local Collective Server</tspan></text>
+    <path
+       style="fill:none;stroke:#777878;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 23.058608,149.13652 c -7.068239,5.77197 -33.133694,-4.07801 -35.66409,8.94364"
+       id="path24465-48"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#777878;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 23.058608,149.13652 c 6.911198,6.95879 23.311898,-2.58016 22.77861,9.49617"
+       id="path33795-6"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.27258px;line-height:1.25;font-family:'Al Bayan';-inkscape-font-specification:'Al Bayan';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+       x="15.399182"
+       y="140.86659"
+       id="text2480-3-5-8-7-1-4-1"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan2478-9-5-4-4-2-9-1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Satoshi;-inkscape-font-specification:Satoshi;fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+         x="15.399182"
+         y="140.86659">Node 1</tspan></text>
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#dd5025;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect846-2"
+       width="43.18116"
+       height="10.046897"
+       x="28.685547"
+       y="99.241676"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#f3b37a;stroke-width:0.39763;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect846-4-0-7"
+       width="97.752495"
+       height="52.374996"
+       x="120.17533"
+       y="121.10637"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#fa8b22;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:4.73272;stroke-opacity:1"
+       id="rect846-7"
+       width="30.447155"
+       height="11.770697"
+       x="125.42995"
+       y="153.586"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#fa8b22;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:4.73272;stroke-opacity:1"
+       id="rect846-7-6"
+       width="30.447155"
+       height="11.770697"
+       x="182.61047"
+       y="154.51518"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.74554px;line-height:1.25;font-family:'Al Bayan';-inkscape-font-specification:'Al Bayan';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+       x="29.937302"
+       y="105.69564"
+       id="text10556"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan10554"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-family:Satoshi;-inkscape-font-specification:'Satoshi Medium';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+         x="29.937302"
+         y="105.69564">GlobalOrchestrator</tspan></text>
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#fa8b22;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1, 0.5;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect11050-7"
+       width="53.396824"
+       height="19.243185"
+       x="147.43983"
+       y="125.23849"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200" />
+    <path
+       style="fill:none;stroke:#777878;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 49.97996,109.83556 c 3.631362,19.72057 124.55436,-9.78615 125.29937,11.17171"
+       id="path24463"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#777878;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 173.99711,145.20574 c -7.06824,5.77197 -43.94172,-2.3079 -34.60576,8.69871"
+       id="path24465"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#777878;stroke-width:0.264583;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:2.11666, 1.05833;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
+       d="m 146.89912,128.34089 c 0,0 -34.9899,-12.03231 -48.860949,1.35566 -15.126538,14.59973 -49.106169,4.14397 -49.106169,4.14397"
+       id="path24727"
+       sodipodi:nodetypes="csc"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.55296px;line-height:1.25;font-family:'Al Bayan';-inkscape-font-specification:'Al Bayan';fill:#777878;fill-opacity:1;stroke-width:0.0888243"
+       x="93.333672"
+       y="141.44156"
+       id="text25837"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan25835"
+         style="font-style:italic;font-variant:normal;font-weight:500;font-stretch:normal;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable Medium Italic';text-align:center;text-anchor:middle;fill:#777878;fill-opacity:1;stroke-width:0.0888243"
+         x="93.333672"
+         y="141.44156">tensor transfers</tspan><tspan
+         sodipodi:role="line"
+         style="font-style:italic;font-variant:normal;font-weight:500;font-stretch:normal;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable Medium Italic';text-align:center;text-anchor:middle;fill:#777878;fill-opacity:1;stroke-width:0.0888243"
+         x="93.333672"
+         y="146.40623"
+         id="tspan50577">over network</tspan></text>
+    <path
+       style="fill:none;stroke:#777878;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 173.99711,145.20574 c 2.65722,7.85437 24.89939,-3.10933 24.36611,8.96701"
+       id="path33795"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#777878;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 20.398001,129.63503 c 0.962379,-15.65859 32.841566,0.65376 29.581959,-19.79947"
+       id="path45713"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200" />
+    <text
+       xml:space="preserve"
+       style="font-size:3.37179px;line-height:1.25;font-family:'Al Bayan';-inkscape-font-specification:'Al Bayan';fill:#777878;fill-opacity:1;stroke-width:0.879215;stroke-miterlimit:4;stroke-dasharray:none"
+       x="157.01295"
+       y="129.46297"
+       id="text193775"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan193773"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable';fill:#777878;fill-opacity:1;stroke-width:0.879215;stroke-miterlimit:4;stroke-dasharray:none"
+         x="157.01295"
+         y="129.46297">Glocal Collective Client</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.37179px;line-height:1.25;font-family:'Al Bayan';-inkscape-font-specification:'Al Bayan';fill:#777878;fill-opacity:1;stroke-width:0.879215;stroke-miterlimit:4;stroke-dasharray:none"
+       x="157.05731"
+       y="142.71419"
+       id="text193779"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan193777"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable';fill:#777878;fill-opacity:1;stroke-width:0.879215;stroke-miterlimit:4;stroke-dasharray:none"
+         x="157.05731"
+         y="142.71419">Local Collective Server</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.27258px;line-height:1.25;font-family:'Al Bayan';-inkscape-font-specification:'Al Bayan';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+       x="168.32838"
+       y="136.63301"
+       id="text193783"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan193781"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Satoshi;-inkscape-font-specification:Satoshi;fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+         x="168.32838"
+         y="136.63301">Node 2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.27258px;line-height:1.25;font-family:'Al Bayan';-inkscape-font-specification:'Al Bayan';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+       x="132.12701"
+       y="169.97472"
+       id="text198493"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan198491"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable Italic';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+         x="132.12701"
+         y="169.97472">Thread 1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.27258px;line-height:1.25;font-family:'Al Bayan';-inkscape-font-specification:'Al Bayan';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+       x="134.45204"
+       y="161.08015"
+       id="text198497"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan198495"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable Bold';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+         x="134.45204"
+         y="161.08015">Peer 1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.27258px;line-height:1.25;font-family:'Al Bayan';-inkscape-font-specification:'Al Bayan';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+       x="189.3076"
+       y="170.90392"
+       id="text198501"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan198499"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Satoshi;-inkscape-font-specification:'Satoshi Italic';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+         x="189.3076"
+         y="170.90392">Thread 2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.27258px;line-height:1.25;font-family:'Al Bayan';-inkscape-font-specification:'Al Bayan';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+       x="191.63261"
+       y="162.00932"
+       id="text198505"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan198503"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Satoshi;-inkscape-font-specification:'Satoshi Bold';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+         x="191.63261"
+         y="162.00932">Peer 2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.27258px;line-height:1.25;font-family:'Al Bayan';-inkscape-font-specification:'Al Bayan';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+       x="162.63226"
+       y="180.04379"
+       id="text198589"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan198587"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Satoshi;-inkscape-font-specification:'Satoshi Italic';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+         x="162.63226"
+         y="180.04379">Process 2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.27258px;line-height:1.25;font-family:'Al Bayan';-inkscape-font-specification:'Al Bayan';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+       x="6.1318645"
+       y="182.50801"
+       id="text200069"
+       inkscape:export-filename="/Users/guilhemane/tracel/burn-distributed-multi-nodesketch.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan200067"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Satoshi;-inkscape-font-specification:'Satoshi Italic';fill:#777878;fill-opacity:1;stroke-width:1.32292;stroke-miterlimit:4;stroke-dasharray:none"
+         x="6.1318645"
+         y="182.50801">Process 1</tspan></text>
+  </g>
+</svg>

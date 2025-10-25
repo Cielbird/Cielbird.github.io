@@ -1,0 +1,34 @@
+base_url = "https://cielbird.github.io"
+title = "cielbird"
+build_search_index = true
+generate_feeds = true
+compile_sass = true
+minify_html = true
+taxonomies = [{ name = "tags" }]
+
+# for apollo theme's config options:
+# https://github.com/not-matthias/apollo/blob/main/config.toml
+theme = "apollo"
+
+[extra]
+theme = "auto"
+socials = [
+  { name = "linkedin", url = "https://www.linkedin.com/in/guilhemane/", icon = "linkedin" },
+  { name = "github", url = "https://github.com/cielbird/", icon = "github" },
+]
+menu = [
+  { name = "/blog", url = "/blog", weight = 1 },
+  { name = "/projects", url = "/projects", weight = 2 },
+  { name = "/about", url = "/about", weight = 3 },
+  { name = "/tags", url = "/tags", weight = 4 },
+]
+toc = true
+logo = "logo.jpg"
+
+[markdown]
+highlight_code = true
+highlight_theme = "css"
+highlight_themes_css = [
+  { theme = "ayu-dark", filename = "syntax-theme-dark.css" },
+  { theme = "ayu-light", filename = "syntax-theme-light.css" },
+]

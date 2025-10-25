@@ -1,0 +1,19 @@
+public/
+dist/
+.lighthouseci/
+
+themes/apollo/
+
+node_modules/
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

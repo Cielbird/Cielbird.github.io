@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="119.01765mm"
+   height="96.225853mm"
+   viewBox="0 0 119.01765 96.225854"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (c4e8f9e, 2021-05-24)"
+   sodipodi:docname="stack.svg"
+   inkscape:export-filename="/Users/guilhemane/Documents/Cielbird.github.io/content/blog/burn_distributed/stack.png"
+   inkscape:export-xdpi="200"
+   inkscape:export-ydpi="200"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:snap-global="false"
+     inkscape:zoom="1.3033553"
+     inkscape:cx="235.92953"
+     inkscape:cy="200.25238"
+     inkscape:window-width="1440"
+     inkscape:window-height="872"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer2" />
+  <defs
+     id="defs2">
+    <marker
+       style="overflow:visible"
+       id="Arrow2Mstart"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Mstart"
+       inkscape:isstock="true">
+      <path
+         transform="scale(0.6)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         id="path111857" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker112111"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mstart"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(0.4,0,0,0.4,4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path112109" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow2Mend"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Mend"
+       inkscape:isstock="true">
+      <path
+         transform="scale(-0.6)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         id="path111860" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mstart"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mstart"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(0.4,0,0,0.4,4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path111839" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="marker115842"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lstart"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path115840" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="DotL"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="DotL"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(0.8,0,0,0.8,5.92,0.8)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="m -2.5,-1 c 0,2.76 -2.24,5 -5,5 -2.76,0 -5,-2.24 -5,-5 0,-2.76 2.24,-5 5,-5 2.76,0 5,2.24 5,5 z"
+         id="path5781" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleInM"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="TriangleInM"
+       inkscape:isstock="true">
+      <path
+         transform="scale(-0.4)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         id="path5856" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="RazorWire"
+       inkscape:stockid="RazorWire"
+       inkscape:isstock="true">
+      <path
+         d="m 0.02272727,-0.74009011 v 1.4375 L -7.7585227,3.0099099 H 10.678977 L 3.4914773,0.69740989 v -1.4375 L 10.741477,-2.8963401 H -7.7272727 Z"
+         style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:context-stroke;stroke-width:0.1pt"
+         transform="scale(0.8)"
+         id="path5952" />
+    </marker>
+    <marker
+       inkscape:stockid="DistanceStart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="DistanceStart"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <g
+         id="g2300">
+        <path
+           id="path2306"
+           d="M 0,0 H 2"
+           style="fill:none;stroke:context-fill;stroke-width:1.15;stroke-linecap:square" />
+        <path
+           id="path2302"
+           d="M 0,0 13,4 9,0 13,-4 Z"
+           style="fill:context-stroke;fill-rule:evenodd;stroke:none" />
+        <path
+           id="path2304"
+           d="M 0,-4 V 40"
+           style="fill:none;stroke:context-stroke;stroke-width:1;stroke-linecap:square" />
+      </g>
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Lend"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path5723" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Lstart"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lstart"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path5720" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow2Mstart-4"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Mstart"
+       inkscape:isstock="true">
+      <path
+         transform="scale(0.6)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         id="path111857-3" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow2Mend-6"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Mend"
+       inkscape:isstock="true">
+      <path
+         transform="scale(-0.6)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:context-stroke;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         id="path111860-3" />
+    </marker>
+  </defs>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="background"
+     style="display:none"
+     transform="translate(-10.917149,-66.948656)">
+    <rect
+       style="fill:#1a1d22;fill-opacity:1;stroke:#777878;stroke-width:0.16795;stroke-linejoin:round;stroke-opacity:1"
+       id="rect59654"
+       width="118.84969"
+       height="96.057899"
+       x="11.001124"
+       y="67.032631" />
+  </g>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-10.917149,-66.948656)">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.03763px;line-height:1.25;font-family:Seravek;-inkscape-font-specification:Seravek;fill:#ee7d30;fill-opacity:1;stroke-width:0.100941"
+       x="93.881424"
+       y="107.56547"
+       id="text56838"><tspan
+         sodipodi:role="line"
+         id="tspan56836"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Seravek;-inkscape-font-specification:Seravek;fill:#ee7d30;fill-opacity:1;stroke-width:0.100941"
+         x="93.881424"
+         y="107.56547" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.84792px;line-height:1.25;font-family:Seravek;-inkscape-font-specification:Seravek;fill:#dd5025;fill-opacity:1;stroke-width:0.0961982"
+       x="78.025642"
+       y="110.04362"
+       id="text95290"
+       inkscape:export-filename="/Users/guilhemane/tracel/ddp.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan95288"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable Medium';fill:#dd5025;fill-opacity:1;stroke-width:0.0961982"
+         x="78.025642"
+         y="110.04362">burn-collective</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.79735px;line-height:1.25;font-family:Seravek;-inkscape-font-specification:Seravek;fill:#777878;fill-opacity:1;stroke-width:0.0949341"
+       x="41.575214"
+       y="98.269669"
+       id="text95290-0"
+       inkscape:export-filename="/Users/guilhemane/tracel/ddp.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan95288-8"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable Medium';fill:#777878;fill-opacity:1;stroke-width:0.0949341"
+         x="41.575214"
+         y="98.269669">PyTorch</tspan></text>
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#777878;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1, 0.5;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect95294-8"
+       width="29.501915"
+       height="10.093192"
+       x="33.587212"
+       y="92.339905"
+       inkscape:export-filename="/Users/guilhemane/tracel/ddp.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.79735px;line-height:1.25;font-family:Seravek;-inkscape-font-specification:Seravek;fill:#777878;fill-opacity:1;stroke-width:0.0949341"
+       x="43.162682"
+       y="116.79036"
+       id="text125220"
+       inkscape:export-filename="/Users/guilhemane/tracel/ddp.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan125218"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable Medium';fill:#777878;fill-opacity:1;stroke-width:0.0949341"
+         x="43.162682"
+         y="116.79036">NCCL</tspan></text>
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#777878;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1, 0.5;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect125222"
+       width="29.501915"
+       height="21.87443"
+       x="33.587212"
+       y="104.8458"
+       inkscape:export-filename="/Users/guilhemane/tracel/ddp.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.79735px;line-height:1.25;font-family:Seravek;-inkscape-font-specification:Seravek;fill:#dd5025;fill-opacity:1;stroke-width:0.0949341"
+       x="81.901512"
+       y="98.912865"
+       id="text133452"
+       inkscape:export-filename="/Users/guilhemane/tracel/ddp.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan133450"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable Medium';fill:#dd5025;fill-opacity:1;stroke-width:0.0949341"
+         x="81.901512"
+         y="98.912865">burn-train</tspan></text>
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#dd5025;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1, 0.5;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect133454"
+       width="28.768774"
+       height="9.198987"
+       x="76.396828"
+       y="92.984459"
+       inkscape:export-filename="/Users/guilhemane/tracel/ddp.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.79735px;line-height:1.25;font-family:Seravek;-inkscape-font-specification:Seravek;fill:#dd5025;fill-opacity:1;stroke-width:0.0949341"
+       x="81.901512"
+       y="121.66704"
+       id="text134664"
+       inkscape:export-filename="/Users/guilhemane/tracel/ddp.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan134662"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable Medium';fill:#dd5025;fill-opacity:1;stroke-width:0.0949341"
+         x="81.901512"
+         y="121.66704"
+         dx="1.6830367 0 0 0.16830367">backend</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.79735px;line-height:1.25;font-family:Seravek;-inkscape-font-specification:Seravek;fill:#777878;fill-opacity:1;stroke-width:0.0949341"
+       x="40.51688"
+       y="134.78223"
+       id="text136092"
+       inkscape:export-filename="/Users/guilhemane/tracel/ddp.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan136090"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable Medium';fill:#777878;fill-opacity:1;stroke-width:0.0949341"
+         x="40.51688"
+         y="134.78223">hardware</tspan></text>
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#777878;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1, 0.5;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect136094"
+       width="29.551785"
+       height="8.0265827"
+       x="33.525063"
+       y="129.46642"
+       inkscape:export-filename="/Users/guilhemane/tracel/ddp.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.79735px;line-height:1.25;font-family:Seravek;-inkscape-font-specification:Seravek;fill:#777878;fill-opacity:1;stroke-width:0.0949341"
+       x="82.85022"
+       y="134.78223"
+       id="text139006"
+       inkscape:export-filename="/Users/guilhemane/tracel/ddp.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan139004"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable Medium';fill:#777878;fill-opacity:1;stroke-width:0.0949341"
+         x="82.85022"
+         y="134.78223">hardware</tspan></text>
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#777878;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1, 0.5;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect139008"
+       width="32.893127"
+       height="8.008008"
+       x="74.259338"
+       y="129.47571"
+       inkscape:export-filename="/Users/guilhemane/tracel/ddp.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#dd5025;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect139010"
+       width="33.170822"
+       height="36.483093"
+       x="74.195808"
+       y="90.917938"
+       inkscape:export-filename="/Users/guilhemane/tracel/ddp.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#dd5025;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1, 0.5;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect139194"
+       width="28.768774"
+       height="9.198987"
+       x="76.396828"
+       y="104.08666"
+       inkscape:export-filename="/Users/guilhemane/tracel/ddp.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200" />
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#dd5025;stroke-width:0.5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:1, 0.5;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect139276"
+       width="28.768774"
+       height="9.198987"
+       x="76.396828"
+       y="115.7176"
+       inkscape:export-filename="/Users/guilhemane/tracel/ddp.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.79735px;line-height:1.25;font-family:Seravek;-inkscape-font-specification:Seravek;fill:#dd5025;fill-opacity:1;stroke-width:0.0949341"
+       x="86.134796"
+       y="89.387871"
+       id="text141608"
+       inkscape:export-filename="/Users/guilhemane/tracel/ddp.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         id="tspan141606"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable Medium';fill:#dd5025;fill-opacity:1;stroke-width:0.0949341"
+         x="86.134796"
+         y="89.387871">Burn</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.79735px;line-height:1.25;font-family:Seravek;-inkscape-font-specification:Seravek;fill:#777878;fill-opacity:1;stroke-width:0.0949341"
+       x="32.579391"
+       y="143.24869"
+       id="text142744"
+       inkscape:export-filename="/Users/guilhemane/tracel/ddp.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable Italic';fill:#777878;fill-opacity:1;stroke-width:0.0949341"
+         x="32.579391"
+         y="143.24869"
+         id="tspan144924">NCCL with PyTorch</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.79735px;line-height:1.25;font-family:Seravek;-inkscape-font-specification:Seravek;fill:#777878;fill-opacity:1;stroke-width:0.0949341"
+       x="86.55442"
+       y="143.24869"
+       id="text145574"
+       inkscape:export-filename="/Users/guilhemane/tracel/ddp.png"
+       inkscape:export-xdpi="200"
+       inkscape:export-ydpi="200"><tspan
+         sodipodi:role="line"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Satoshi Variable';-inkscape-font-specification:'Satoshi Variable Italic';fill:#777878;fill-opacity:1;stroke-width:0.0949341"
+         x="86.55442"
+         y="143.24869"
+         id="tspan145572">Burn</tspan></text>
+  </g>
+</svg>
