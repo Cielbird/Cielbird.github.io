@@ -2,7 +2,7 @@ public/
 dist/
 .lighthouseci/
 
-themes/apollo/
+# themes/apollo/
 
 node_modules/
 npm-debug.log*
