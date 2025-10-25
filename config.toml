@@ -8,13 +8,13 @@ taxonomies = [{ name = "tags" }]
 
 # for apollo theme's config options:
 # https://github.com/not-matthias/apollo/blob/main/config.toml
-theme = "apollo"
+theme = "apollo_x"
 
 [extra]
-theme = "auto"
 socials = [
   { name = "linkedin", url = "https://www.linkedin.com/in/guilhemane/", icon = "linkedin" },
   { name = "github", url = "https://github.com/cielbird/", icon = "github" },
+  { name = "email", url = "mailto:guilhem.ane3@gmail.com", icon = "email" },
 ]
 menu = [
   { name = "/blog", url = "/blog", weight = 1 },
@@ -23,6 +23,12 @@ menu = [
   { name = "/tags", url = "/tags", weight = 4 },
 ]
 toc = true
+theme = "toggle" # dark/light mode
+fancy_code = true
+dynamic_note = true
+mathjax = true
+mathjax_dollar_inline_enable = true
+
 logo = "logo.jpg"
 
 [markdown]
