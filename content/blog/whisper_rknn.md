@@ -1,5 +1,5 @@
 +++
-title = "Running real-time Whisper on the Rockchip NPU"
+title = "Real-time Whisper on the Rockchip NPU"
 date = "2025-10-26"
 # updated = "2025-10-25"
 
@@ -10,9 +10,7 @@ tags=["ai", "rust"]
 comment = true
 +++
 
-{{ 
-    note(header="Note", 
-    body="Coming soon") 
+{{
+    note(header="Note",
+    body="Coming soon")
 }}
-
-
