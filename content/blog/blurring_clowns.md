@@ -40,6 +40,8 @@ My first game plan was as follows:
 - In one frame, store the face's image.
 - On the next frame, display the previous frame's filtered image in the new detection zone.
 
+## Downsampling
+
 The first issue I ran into was storing the detected zone in registers. I had access to the pixel 
 colors in RGB888 format, which is 3 bytes per pixel. So I needed 
 $256 \times 256 \times 24 = 1572864$ flip-flops. That was way too much for the simple 
@@ -48,7 +50,7 @@ Zybo Z7-20 FPGA dev-board I was using.
 I decided to downsample the input by a factor of 16; from 256x256 to 16x16. 
 This inherently added some pixelization to the filter, which was fine. 
 
-For this crude application, I didn't use filtering before downsampling. 
+For this crude application, I didn't do any anti-aliasing before downsampling. 
 
 I used a 3x3 kernel to apply the filter:
 
@@ -57,6 +59,8 @@ O(x, y) = \sum_{i=-1}^{1} \sum_{j=-1}^{1} I(x+i, y+j) \times K(i, j)
 $$
 
 The beautiful thing about FPGA is that all these operations can easily be in parallel.
+
+## Timing
 
 The second issue was timing. The convolution calculations are hefty, and 
 I needed this done in only a couple clock cycles. This caused timing issues, and 
@@ -103,9 +107,10 @@ type FSM_STATE is (IDLE, MULT, ADD_1, ADD_2, ADD_3, OUTPUT);
 
 {{ image(path="blog/blurring_clowns/pipeline.png", alt="5 stage pipeline")}}
 
-Second, using integers, I could simply multiply by 1, 2, and 4, and on the output step simply 
-divide by 16 using a right-bit-shift. Using integers allowed me to go much faster, and I saw a noticeable 
-drop in the instability of the design.
+Second, I used integers instead of floats in the calculations. 
+Using integers, I could simply multiply by 1, 2, and 4, and on the output step simply 
+divide by 16 using a right-bit-shift. Using integers allowed me to go much faster, and I saw a 
+noticeable drop in the instability of the design.
 
 In the end, we had an architecture that looked something like this:
 
