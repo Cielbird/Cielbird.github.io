@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>cielbird</title>
+    <link rel="self" type="application/atom+xml" href="https://cielbird.github.io/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://cielbird.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-10-30T00:00:00+00:00</updated>
+    <id>https://cielbird.github.io/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Real-time Whisper on the Rockchip NPU</title>
+        <published>2025-10-26T00:00:00+00:00</published>
+        <updated>2025-10-26T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://cielbird.github.io/blog/whisper-rknn/"/>
+        <id>https://cielbird.github.io/blog/whisper-rknn/</id>
+        
+        <content type="html" xml:base="https://cielbird.github.io/blog/whisper-rknn/">&lt;div class=&quot;note-container&quot;&gt;
+    
+            &lt;div class=&quot;note-header&quot;&gt;
+                
+                    &lt;div class=&quot;note-icon&quot;&gt;
+                        &lt;p&gt;Note&lt;&#x2F;p&gt;
+
+                    &lt;&#x2F;div&gt;
+                
+            &lt;&#x2F;div&gt;
+            &lt;div class=&quot;note-content&quot;&gt;
+                &lt;p&gt;Coming soon&lt;&#x2F;p&gt;
+
+            &lt;&#x2F;div&gt;
+        
+    &lt;&#x2F;div&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Distributed AI in Rust</title>
+        <published>2025-09-01T00:00:00+00:00</published>
+        <updated>2025-10-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://cielbird.github.io/blog/burn-distributed/"/>
+        <id>https://cielbird.github.io/blog/burn-distributed/</id>
+        
+        <content type="html" xml:base="https://cielbird.github.io/blog/burn-distributed/">&lt;div class=&quot;note-container&quot;&gt;
+    
+            &lt;div class=&quot;note-header&quot;&gt;
+                
+                    &lt;div class=&quot;note-icon&quot;&gt;
+                        &lt;p&gt;Note&lt;&#x2F;p&gt;
+
+                    &lt;&#x2F;div&gt;
+                
+            &lt;&#x2F;div&gt;
+            &lt;div class=&quot;note-content&quot;&gt;
+                &lt;p&gt;This post was originally written at the end of an internship. I haven&#x27;t gotten to re-writing it for my blog, so it may read a little weird.&lt;&#x2F;p&gt;
+
+            &lt;&#x2F;div&gt;
+        
+    &lt;&#x2F;div&gt;
+&lt;h1 id=&quot;introduction&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#introduction&quot; aria-label=&quot;Anchor link for: introduction&quot;&gt;Introduction&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;AI models and their training data are big. Training an AI model on only one GPU can become slow, and many models don&#x27;t even fit on one single GPU. Many techniques exist to manage the memory and speed limitations of modern models. These techniques have unlocked many of the impressive advances in machine learning we see today. These training and inference techniques all depend on basic building blocks of collective communications called &lt;em&gt;collective operations&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;In this blog we will cover collective operations, how they are used to speed up training. We&#x27;ll also discuss the unique way &lt;a href=&quot;https:&#x2F;&#x2F;burn.dev&#x2F;&quot;&gt;Burn&lt;&#x2F;a&gt; implements collective operations in the 0.20.0 release, as well as how you can easily train your models on multiple devices and multiple nodes.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;data-parallel-training&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#data-parallel-training&quot; aria-label=&quot;Anchor link for: data-parallel-training&quot;&gt;Data Parallel Training&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Distributed data parallel training (DDP) is a basic example of distributed training. It consists of splitting the training data between multiple devices and training a copy of the model on each device, all while keeping the parameters in sync.&lt;&#x2F;p&gt;
+&lt;p&gt;First, the training data is split between each device. Then, during each training step, each device does a forward and backward pass on its own batch of data. The resulting gradients are aggregated between each device. Each device then optimizes its model with the
+new gradients. At this point the models have the same optimized parameters.&lt;&#x2F;p&gt;
+&lt;!-- ![distributed-data-parallel](ddp.png) --&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;img aspect-ratio=&quot;1556 &#x2F; 1556&quot;
+     src=&quot;https:&amp;#x2F;&amp;#x2F;cielbird.github.io&amp;#x2F;processed_images&amp;#x2F;ddp.0998265185a51c66.avif&quot;
+     alt=&quot;Distributed Data Parallel&quot;
+     style=&quot;&quot;
+     loading=&quot;lazy&quot;
+     decoding=&quot;async&quot;
+     class=&quot;&quot; &#x2F;&gt;
+&lt;p&gt;&lt;em&gt;Figure 1: Data distributed training on three devices&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;This technique allows training time to be cut down significantly, as long as the gradient syncing
+is negligible. This technique still requires each device to store the entire
+model in memory, which is an issue tackled by other distributed training techniques.&lt;&#x2F;p&gt;
+&lt;p&gt;It is clear that the key to this technique is the gradient syncing. The gradient syncing must
+be as efficient as possible as to not be a bottleneck in the pipeline.&lt;&#x2F;p&gt;
+&lt;div class=&quot;footnote-definition&quot; id=&quot;1&quot;&gt;&lt;sup class=&quot;footnote-definition-label&quot;&gt;1&lt;&#x2F;sup&gt;
+&lt;p&gt;The term &#x27;devices&#x27; refers to GPUs, TPUs, and other computational hardware commonly utilized in machine learning applications.&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+&lt;h1 id=&quot;collective-operations&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#collective-operations&quot; aria-label=&quot;Anchor link for: collective-operations&quot;&gt;Collective operations&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;The syncing of gradients in a data parallel training is a collecive operation called an &lt;em&gt;all-reduce&lt;&#x2F;em&gt;. An all-reduce is one of many primitive collective operations. Some others are:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;broadcast: one device sends a tensor to all others&lt;&#x2F;li&gt;
+&lt;li&gt;reduce: a tensor on each device is reduced to one tensor on one device&lt;&#x2F;li&gt;
+&lt;li&gt;reduce-scatter: a tensor on each device is reduced, each device ends up with a part of the resulting tensor&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;PyTorch and TensorFlow don&#x27;t implement their own collective operations, instead they make use of communication libraries such as &lt;a href=&quot;https:&#x2F;&#x2F;developer.nvidia.com&#x2F;nccl&quot;&gt;NCCL&lt;&#x2F;a&gt; (for NVIDIA GPUs), MPI, or Gloo.&lt;&#x2F;p&gt;
+&lt;p&gt;NCCL is the library used for NVIDIA GPUs. It abstracts collective operations using protocols like NVLink, PCIe, GPUDirect RDMA, and even TCP&#x2F;IP. For all of NCCL&#x27;s benefits, it is only useful for NVIDIA devices, which goes against Burn&#x27;s core principles.&lt;&#x2F;p&gt;
+&lt;p&gt;Moreover, Burn &lt;em&gt;already has&lt;&#x2F;em&gt; the tools for tensor communication between devices on the same machine with &lt;code&gt;Tensor::to_device&lt;&#x2F;code&gt;. We can take advantage of shared memory, or even backend specific protocols like &lt;code&gt;NVLink&lt;&#x2F;code&gt; for an Nvidia backend. Logically, GPU-to-GPU communication on the same machine should be done with &lt;code&gt;to_device&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;For these reasons, we decided to implement our own collective operations crate called &lt;code&gt;burn-collective&lt;&#x2F;code&gt;. For intra-node communication, we use &lt;code&gt;Tensor::to_device&lt;&#x2F;code&gt;, taking advantage of all the backend specific optimisations. For inter-node communication, we use TCP&#x2F;IP. This two-step separation will show up later.&lt;&#x2F;p&gt;
+&lt;!-- ![stack](stack.png) --&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;img aspect-ratio=&quot;937 &#x2F; 937&quot;
+     src=&quot;https:&amp;#x2F;&amp;#x2F;cielbird.github.io&amp;#x2F;processed_images&amp;#x2F;stack.36ae8199b25fb227.avif&quot;
+     alt=&quot;Stack&quot;
+     style=&quot;&quot;
+     loading=&quot;lazy&quot;
+     decoding=&quot;async&quot;
+     class=&quot;&quot; &#x2F;&gt;
+&lt;p&gt;&lt;em&gt;Figure 2: Pytorch and NCCL compared to Burn&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;how-burn-implements-collective-operations&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#how-burn-implements-collective-operations&quot; aria-label=&quot;Anchor link for: how-burn-implements-collective-operations&quot;&gt;How Burn implements collective operations&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Burn currently only supports all-reduce. Reduce and broadcast are also supported, although only in single-node contexts.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;how-many-processes&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#how-many-processes&quot; aria-label=&quot;Anchor link for: how-many-processes&quot;&gt;How many processes?&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;We started with &lt;code&gt;all-reduce&lt;&#x2F;code&gt;, because it is the backbone to data distributed training.&lt;&#x2F;p&gt;
+&lt;p&gt;With PyTorch, you usually assign a different process to each GPU. There are many reasons for this, but a big one is the Python&#x27;s Global Interpreter Lock (GIL). The GIL only allows one thread to hold the Python interpreter at a time, which essentially prevents anything written in Python to actually be multi-threaded.&lt;&#x2F;p&gt;
+&lt;p&gt;Thankfully, we&#x27;re not using Python.&lt;&#x2F;p&gt;
+&lt;p&gt;As said before, we can use &lt;code&gt;to_device&lt;&#x2F;code&gt; to take care of intra-node communication. We can assume the user will launch a thread for each GPU. So for one machine, we only need one process.&lt;&#x2F;p&gt;
+&lt;!-- ![burn_collective_architecture](burn_collective.png) --&gt;
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+&lt;img aspect-ratio=&quot;2311 &#x2F; 2311&quot;
+     src=&quot;https:&amp;#x2F;&amp;#x2F;cielbird.github.io&amp;#x2F;processed_images&amp;#x2F;burn_collective.5c143b6ca24982da.avif&quot;
+     alt=&quot;Burn collective&quot;
+     style=&quot;&quot;
+     loading=&quot;lazy&quot;
+     decoding=&quot;async&quot;
+     class=&quot;&quot; &#x2F;&gt;
+
+&lt;em&gt;Figure 3: Burn collective: an example structure with 4 peers and 2 nodes&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;local-and-global&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#local-and-global&quot; aria-label=&quot;Anchor link for: local-and-global&quot;&gt;Local and global&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Since intra-node and inter-node communication are fundamentally different, we decided to split collective operations between a &lt;em&gt;local&lt;&#x2F;em&gt; (intra-node) and &lt;em&gt;global&lt;&#x2F;em&gt; (inter-node) level. Internally, the algorithms are implemented differently on the internal level and global levels.&lt;&#x2F;p&gt;
+&lt;p&gt;This leads to a process-per-node structure.&lt;&#x2F;p&gt;
+&lt;p&gt;It is worth noting that the local&#x2F;global separation is an implementation detail, and it is only necessary to know when configuring the collective. From a user&#x27;s perspective, all the other peers, whether on the same node or not, are just as accessible.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;walkthrough-of-an-all-reduce&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#walkthrough-of-an-all-reduce&quot; aria-label=&quot;Anchor link for: walkthrough-of-an-all-reduce&quot;&gt;Walkthrough of an All-Reduce&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Lets walk through the internals of a call to &lt;code&gt;all_reduce&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Each thread must first register, passing a &lt;code&gt;CollectiveConfig&lt;&#x2F;code&gt; that contains information about the number of peers on the same node, as well as the number of nodes in the collective. The call to &lt;code&gt;register&lt;&#x2F;code&gt; is blocking, so it syncs all the threads. When the node&#x27;s &lt;code&gt;LocalCollectiveServer&lt;&#x2F;code&gt; has registered each peer on the node, the node will register on the global level if necessary.&lt;&#x2F;p&gt;
+&lt;p&gt;Then, on the global level, the &lt;code&gt;GlobalOrchestrator&lt;&#x2F;code&gt; acts as a rendez-vous point for each node. After registering, the nodes have the addresses of every other node in the collective, and they can be as independent as possible. In the future, the &lt;code&gt;GlobalOrchestrator&lt;&#x2F;code&gt; could allow for a dynamic topology, keeping nodes updated on any changes.&lt;&#x2F;p&gt;
+&lt;p&gt;Next, all peers in the collective call an &lt;code&gt;all_reduce&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;When all registered threads have called the opration, the &lt;code&gt;LocalCollectiveServer&lt;&#x2F;code&gt; starts the operation. In single node contexts, this is very simple, as the &lt;code&gt;LocalCollectiveServer&lt;&#x2F;code&gt; manages everything with &lt;code&gt;Tensor::to_device&lt;&#x2F;code&gt; for tensor transfers.&lt;&#x2F;p&gt;
+&lt;p&gt;In a multi-node context, each node will already have the coordinates of other nodes, supplied upon registering. They communicate tensors with the &lt;code&gt;burn_communications&lt;&#x2F;code&gt; crate, specifically with the &lt;code&gt;TensorDataService&lt;&#x2F;code&gt;. This service allows for exposing and downloading Burn tensors over the network in a peer-to-peer manner. Currently we use WebSockets, but QUIC is a likely candidate for future use.&lt;&#x2F;p&gt;
+&lt;p&gt;In multi-node contexts, nodes must synchronise at the end of the operation. This is true for all collective operations, but it becomes especially important for &lt;code&gt;broadcast&lt;&#x2F;code&gt;, where the broadcaster must wait for all receivers to receive the tensor.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;methods&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#methods&quot; aria-label=&quot;Anchor link for: methods&quot;&gt;Methods&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;Burn supports multiple strategies for all-reduce, configurable at both local and global levels.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;centralized&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#centralized&quot; aria-label=&quot;Anchor link for: centralized&quot;&gt;Centralized&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;All peers send tensors to a root, which aggregates them and broadcasts the result back.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;tree&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#tree&quot; aria-label=&quot;Anchor link for: tree&quot;&gt;Tree&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Peers are arranged in a b-tree and reduce in parallel, achieving $O(\log_b(N))$ time.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;ring&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#ring&quot; aria-label=&quot;Anchor link for: ring&quot;&gt;Ring&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Peers form a ring, slicing tensors and passing them around. This maximizes bandwidth usage but is more sensitive to latency.&lt;&#x2F;p&gt;
+&lt;!-- ![all-reduce-methods](methods.png) --&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;img aspect-ratio=&quot;2257 &#x2F; 2257&quot;
+     src=&quot;https:&amp;#x2F;&amp;#x2F;cielbird.github.io&amp;#x2F;processed_images&amp;#x2F;methods.283a5a87a3fbfd0c.avif&quot;
+     alt=&quot;all-reduce methods&quot;
+     style=&quot;&quot;
+     loading=&quot;lazy&quot;
+     decoding=&quot;async&quot;
+     class=&quot;&quot; &#x2F;&gt;
+&lt;p&gt;&lt;em&gt;Figure 4: An overview of the three strategies&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;local-strategy-and-global-strategy&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#local-strategy-and-global-strategy&quot; aria-label=&quot;Anchor link for: local-strategy-and-global-strategy&quot;&gt;Local strategy and global strategy&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;Since the all-reduce is split on two levels, the local (intra-node) level and global (inter-node) level, we can use different local strategies for different nodes, and a different strategy on the global level. Below is a diagram that shows an example of a collective with 3 nodes, each using a different local strategy.&lt;&#x2F;p&gt;
+&lt;!-- ![all-reduce-methods-local-global](method_local_global.png) --&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;img aspect-ratio=&quot;1056 &#x2F; 1056&quot;
+     src=&quot;https:&amp;#x2F;&amp;#x2F;cielbird.github.io&amp;#x2F;processed_images&amp;#x2F;method_local_global.41503ef57a68cbc0.avif&quot;
+     alt=&quot;all-reduce-methods-local-global&quot;
+     style=&quot;&quot;
+     loading=&quot;lazy&quot;
+     decoding=&quot;async&quot;
+     class=&quot;&quot; &#x2F;&gt;
+&lt;h3 id=&quot;local-ring-downfall&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#local-ring-downfall&quot; aria-label=&quot;Anchor link for: local-ring-downfall&quot;&gt;Local ring downfall&lt;&#x2F;a&gt;&lt;&#x2F;h3&gt;
+&lt;p&gt;The &lt;code&gt;Centralized&lt;&#x2F;code&gt; and &lt;code&gt;Tree&lt;&#x2F;code&gt; strategies can be split into two operations: a reduce and a broadcast. A reduce operation aggregates all tensors onto one peer, and a broadcast distributes a tensor from one peer to all others.&lt;&#x2F;p&gt;
+&lt;p&gt;The result from the global all-reduce needs to be broadcast to all other local peers. So, with &lt;code&gt;Ring&lt;&#x2F;code&gt; and &lt;code&gt;Centralized&lt;&#x2F;code&gt; we don&#x27;t actually need to do a local all-reduce, we just need to do a reduce, followed by the global all-reduce, followed by the broadcast. It&#x27;s like fitting the global all-reduce in the middle of the local all-reduce&lt;&#x2F;p&gt;
+&lt;p&gt;So with &lt;code&gt;Centralized&lt;&#x2F;code&gt; and &lt;code&gt;Tree&lt;&#x2F;code&gt; in multi-node contexts we do:&lt;&#x2F;p&gt;
+&lt;p&gt;Local reduce -&amp;gt; Global all-reduce -&amp;gt; Local broadcast&lt;&#x2F;p&gt;
+&lt;p&gt;Due to the nature of the &lt;code&gt;Ring&lt;&#x2F;code&gt; algorithm, a ring-reduce can&#x27;t be split between a reduce step and a broadcast step. This means if the &lt;code&gt;Ring&lt;&#x2F;code&gt; strategy is chosen locally, the steps will be as follows:&lt;&#x2F;p&gt;
+&lt;p&gt;Local all-reduce -&amp;gt; Global all-reduce -&amp;gt; Local broadcast&lt;&#x2F;p&gt;
+&lt;p&gt;This unnecessarily distributes the local all-reduce result to local peers, when anyway we will overwrite the tensor with the global all-reduce result. This may be less advantageous than other configurations. For this reason, it is recommended not to use &lt;code&gt;Ring&lt;&#x2F;code&gt; on the local level, only on the global level.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;burn-communications&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#burn-communications&quot; aria-label=&quot;Anchor link for: burn-communications&quot;&gt;&lt;code&gt;burn-communications&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;With the addition of &lt;code&gt;burn-collective&lt;&#x2F;code&gt;, it was necessary to build a solid base for network communication in burn. The &lt;code&gt;burn-communications&lt;&#x2F;code&gt; crate offers an abstraction of client-server logic, as well as a &lt;code&gt;TensorDataService&lt;&#x2F;code&gt; used for peer-to-peer tensor transfers. This allows developers to swap protocols with minimal effort.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;ddp-training&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#ddp-training&quot; aria-label=&quot;Anchor link for: ddp-training&quot;&gt;DDP Training&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;Lets get back to a Data Parallel training. How can you take advantage of these fancy new collective operations?&lt;&#x2F;p&gt;
+&lt;p&gt;Previously, to train on multiple devices, you had to use the &lt;code&gt;LearnerBuilder::devices&lt;&#x2F;code&gt; function:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-rust&quot;&gt;let&lt;&#x2F;span&gt; learner &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;LearnerBuilder&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;new&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other z-rust&quot;&gt;ARTIFACT_DIR&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;    &lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;devices&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-macro z-rust&quot;&gt;vec!&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;[&lt;&#x2F;span&gt;gpu_1&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; gpu_2&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; gpu_3&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;    &lt;span class=&quot;z-comment z-line z-double-slash z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-rust&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt; ...
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;    &lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;build&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;model&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; config&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;optimizer&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;init&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; 1e&lt;span class=&quot;z-keyword z-operator z-arithmetic z-rust&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;4&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This has been replaced with &lt;code&gt;LearnerBuilder::learning_strategy&lt;&#x2F;code&gt;:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-rust&quot;&gt;let&lt;&#x2F;span&gt; collective &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;CollectiveConfig&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;default&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-rust&quot;&gt;let&lt;&#x2F;span&gt; learner &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;LearnerBuilder&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;new&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other z-rust&quot;&gt;ARTIFACT_DIR&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;    &lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;learning_strategy&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;burn&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;train&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;ddp&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-macro z-rust&quot;&gt;vec!&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;[&lt;&#x2F;span&gt;gpu_1&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; gpu_2&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; gpu_3&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; collective&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;    &lt;span class=&quot;z-comment z-line z-double-slash z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-rust&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt; ...
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;    &lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;build&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;model&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; config&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;optimizer&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;init&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; 1e&lt;span class=&quot;z-keyword z-operator z-arithmetic z-rust&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;4&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The DDP learning strategy will launch a thread for each device, so in single-node environments
+this is a minimal change.&lt;&#x2F;p&gt;
+&lt;p&gt;For multi-node environments, the user will need to launch the &lt;code&gt;GlobalOrchestrator&lt;&#x2F;code&gt;.
+After, they will need to launch the training on each node manually. Extra configuration is also required for the nodes to find each other.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-rust&quot;&gt;let&lt;&#x2F;span&gt; collective &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;CollectiveConfig&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;default&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;    &lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;with_global_address&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;Address&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;from_str&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-string z-quoted z-double z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;ws:&#x2F;&#x2F;example.com&#x2F;orchestrator&lt;span class=&quot;z-punctuation z-definition z-string z-end z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;unwrap&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;    &lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;with_num_nodes&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;3&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;    &lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;with_node_address&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;Address&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;from_str&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-string z-quoted z-double z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;ws:&#x2F;&#x2F;example.com&#x2F;node_1&lt;span class=&quot;z-punctuation z-definition z-string z-end z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;unwrap&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;    &lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;with_data_service_port&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;3000&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-rust&quot;&gt;let&lt;&#x2F;span&gt; learner &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;LearnerBuilder&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;new&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other z-rust&quot;&gt;ARTIFACT_DIR&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;    &lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;learning_strategy&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;burn&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;train&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;ddp&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-macro z-rust&quot;&gt;vec!&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;[&lt;&#x2F;span&gt;gpu_1&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; gpu_2&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; gpu_3&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; collective&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;    &lt;span class=&quot;z-comment z-line z-double-slash z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-rust&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt; ...
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;    &lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;build&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;model&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; config&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;optimizer&lt;span class=&quot;z-punctuation z-accessor z-dot z-rust&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-support z-function z-rust&quot;&gt;init&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; 1e&lt;span class=&quot;z-keyword z-operator z-arithmetic z-rust&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;4&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h1 id=&quot;conclusion&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#conclusion&quot; aria-label=&quot;Anchor link for: conclusion&quot;&gt;Conclusion&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;With burn-collective and the new DDP learning strategy, training on multiple GPUs or even across multiple nodes is now straightforward in Burn. On a single machine, users only need to provide their devices—the framework handles threading and gradient synchronization automatically. Scaling to multiple nodes requires some extra configuration for the orchestrator and addresses, but the API stays consistent, and the communication layer abstracts away the complexity.&lt;&#x2F;p&gt;
+&lt;p&gt;The key point is that you don’t need to learn NCCL, MPI, or low-level communication details. Burn provides a unified interface for collective operations that works across devices and nodes, while still letting you choose strategies that match your hardware. This makes it possible to start small and scale up without rewriting your training code.&lt;&#x2F;p&gt;
+&lt;p&gt;If you’re already training models in Burn, upgrading to distributed data parallel training is just a few lines of code away.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Geþeode - Phonetics Engine</title>
+        <published>2025-01-01T00:00:00+00:00</published>
+        <updated>2025-01-01T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://cielbird.github.io/projects/getheode/"/>
+        <id>https://cielbird.github.io/projects/getheode/</id>
+        
+        <content type="html" xml:base="https://cielbird.github.io/projects/getheode/"></content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Censoring clowns with FPGA</title>
+        <published>2024-12-03T00:00:00+00:00</published>
+        <updated>2025-10-30T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://cielbird.github.io/blog/blurring-clowns/"/>
+        <id>https://cielbird.github.io/blog/blurring-clowns/</id>
+        
+        <content type="html" xml:base="https://cielbird.github.io/blog/blurring-clowns/">&lt;p&gt;In this blog post, I&#x27;ll talk about an interesting project I worked on, and what I would
+have done differently.&lt;&#x2F;p&gt;
+&lt;p&gt;I was working on a demonstration project about face detection and censoring.
+Instead of designing a CNN&#x2F;YOLO model on FPGA (which would have been a crazy project on its own),
+we used simple color detection.
+The trick: the user would wear a red clown nose, which would be reliable to detect.
+It was a sort of &#x27;clown censorship device&#x27;, funny and perfectly acceptable for the context.&lt;&#x2F;p&gt;
+&lt;p&gt;At first, we used a 256x256 black rectangle to mask the area detected by our red color detection.&lt;&#x2F;p&gt;
+&lt;p&gt;It was my job to implement a blur in the detection zone. This requires a convolutional filter,
+with a blurring kernel.&lt;&#x2F;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;img aspect-ratio=&quot;847 &#x2F; 847&quot;
+     src=&quot;https:&amp;#x2F;&amp;#x2F;cielbird.github.io&amp;#x2F;processed_images&amp;#x2F;demo.9a2d8bfddc61fd39.avif&quot;
+     alt=&quot;Demo&quot;
+     style=&quot;&quot;
+     loading=&quot;lazy&quot;
+     decoding=&quot;async&quot;
+     class=&quot;&quot; &#x2F;&gt;
+&lt;p&gt;&lt;em&gt;This is what the clown censoring looked like. I had it configured to track a blue color,&lt;&#x2F;em&gt;
+&lt;em&gt;so I was holding up a blue paper on my nose. It was very fun to play with!&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;game-plan&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#game-plan&quot; aria-label=&quot;Anchor link for: game-plan&quot;&gt;Game plan&lt;&#x2F;a&gt;&lt;&#x2F;h1&gt;
+&lt;p&gt;HDMI sweeps the image on the screen in rows: left to right, and top to bottom. So when displaying a
+pixel, I don&#x27;t know what color the pixel to the right will be. So to apply a filter on an image, I
+needed to use some previous frame as input. This meant I needed to store the entire region in
+memory.&lt;&#x2F;p&gt;
+&lt;p&gt;My first game plan was as follows:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;In one frame, store the face&#x27;s image.&lt;&#x2F;li&gt;
+&lt;li&gt;On the next frame, display the previous frame&#x27;s filtered image in the new detection zone.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;downsampling&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#downsampling&quot; aria-label=&quot;Anchor link for: downsampling&quot;&gt;Downsampling&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;The first issue I ran into was storing the detected zone in registers. I had access to the pixel
+colors in RGB888 format, which is 3 bytes per pixel. So I needed
+$256 \times 256 \times 24 = 1572864$ flip-flops. That was way too much for the simple
+Zybo Z7-20 FPGA dev-board I was using.&lt;&#x2F;p&gt;
+&lt;p&gt;I decided to downsample the input by a factor of 16; from 256x256 to 16x16.
+This inherently added some pixelization to the filter, which was fine.&lt;&#x2F;p&gt;
+&lt;p&gt;For this crude application, I didn&#x27;t do any anti-aliasing before downsampling.&lt;&#x2F;p&gt;
+&lt;p&gt;I used a 3x3 kernel to apply the filter:&lt;&#x2F;p&gt;
+&lt;p&gt;$$
+O(x, y) = \sum_{i=-1}^{1} \sum_{j=-1}^{1} I(x+i, y+j) \times K(i, j)
+$$&lt;&#x2F;p&gt;
+&lt;p&gt;The beautiful thing about FPGA is that all these operations can easily be in parallel.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;timing&quot;&gt;&lt;a class=&quot;zola-anchor&quot; href=&quot;#timing&quot; aria-label=&quot;Anchor link for: timing&quot;&gt;Timing&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;The second issue was timing. The convolution calculations are hefty, and
+I needed this done in only a couple clock cycles. This caused timing issues, and
+I struggled with the screen going black. This is what my code somewhat looked like at this stage:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;vhdl&quot; class=&quot;language-vhdl z-code&quot;&gt;&lt;code class=&quot;language-vhdl&quot; data-lang=&quot;vhdl&quot;&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;architecture behavioral of conv3x3 is
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;    -- 3x3 kernel as float constants
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;    constant K00 : float32 := to_float(1.0&#x2F;16.0, float32&amp;#39;high);
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;    constant K01 : float32 := to_float(2.0&#x2F;16.0, float32&amp;#39;high);
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;    constant K02 : float32 := to_float(1.0&#x2F;16.0, float32&amp;#39;high);
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;    constant K10 : float32 := to_float(2.0&#x2F;16.0, float32&amp;#39;high);
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;    constant K11 : float32 := to_float(4.0&#x2F;16.0, float32&amp;#39;high);
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;    constant K12 : float32 := to_float(2.0&#x2F;16.0, float32&amp;#39;high);
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;    constant K20 : float32 := to_float(1.0&#x2F;16.0, float32&amp;#39;high);
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;    constant K21 : float32 := to_float(2.0&#x2F;16.0, float32&amp;#39;high);
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;    constant K22 : float32 := to_float(1.0&#x2F;16.0, float32&amp;#39;high);
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;    signal sum : float32;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;begin
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;    process(all)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;    begin
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;        sum := (p00*K00) + (p01*K01) + (p02*K02) +
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;               (p10*K10) + (p11*K11) + (p12*K12) +
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;               (p20*K20) + (p21*K21) + (p22*K22);
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;        result_out &amp;lt;= sum;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;    end process;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;end architecture;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;There were two issues here:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;I wasn&#x27;t pipelining my operations&lt;&#x2F;li&gt;
+&lt;li&gt;I was using floating point arithmetic&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;I added a 5 stage pipeline that helped divide the operations into smaller more manageable chunks.
+Now I could assure the whole calculation would only take 5 clock cycles.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;vhdl&quot; class=&quot;language-vhdl z-code&quot;&gt;&lt;code class=&quot;language-vhdl&quot; data-lang=&quot;vhdl&quot;&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;type FSM_STATE is (IDLE, MULT, ADD_1, ADD_2, ADD_3, OUTPUT);
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;img aspect-ratio=&quot;773 &#x2F; 773&quot;
+     src=&quot;https:&amp;#x2F;&amp;#x2F;cielbird.github.io&amp;#x2F;processed_images&amp;#x2F;pipeline.d504a0ce2ca8eb24.avif&quot;
+     alt=&quot;5 stage pipeline&quot;
+     style=&quot;&quot;
+     loading=&quot;lazy&quot;
+     decoding=&quot;async&quot;
+     class=&quot;&quot; &#x2F;&gt;
+&lt;p&gt;Second, I used integers instead of floats in the calculations.
+Using integers, I could simply multiply by 1, 2, and 4, and on the output step simply
+divide by 16 using a right-bit-shift. Using integers allowed me to go much faster, and I saw a
+noticeable drop in the instability of the design.&lt;&#x2F;p&gt;
+&lt;p&gt;In the end, we had an architecture that looked something like this:&lt;&#x2F;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;img aspect-ratio=&quot;2500 &#x2F; 2500&quot;
+     src=&quot;https:&amp;#x2F;&amp;#x2F;cielbird.github.io&amp;#x2F;processed_images&amp;#x2F;full_diagram.e5e8ffe16cbadb2b.avif&quot;
+     alt=&quot;Architecture&quot;
+     style=&quot;&quot;
+     loading=&quot;lazy&quot;
+     decoding=&quot;async&quot;
+     class=&quot;&quot; &#x2F;&gt;
+&lt;p&gt;Ultimately, this was a very fun project. Convolutions are everywhere, and opitimizing the calculation for a real-world application is pretty cool. The biggest mistake I made was ignoring BRAM. If I had used BRAM to
+store the input image, I could have avoided downsampling and taken advantage of the
+&amp;gt;600 KB of available memory on the Zybo Z7-20 FPGA dev-board.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Rust Security Best Practices</title>
+        <published>2024-09-15T00:00:00+00:00</published>
+        <updated>2024-09-15T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://cielbird.github.io/talks/rust-security-best-practices/"/>
+        <id>https://cielbird.github.io/talks/rust-security-best-practices/</id>
+        
+        <content type="html" xml:base="https://cielbird.github.io/talks/rust-security-best-practices/">&lt;p&gt;This talk covers essential security practices for Rust developers, including how to leverage Rust&#x27;s type system for security, managing unsafe code, and auditing dependencies.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Building Lightning-Fast Static Sites with Zola</title>
+        <published>2024-06-22T00:00:00+00:00</published>
+        <updated>2024-06-22T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://cielbird.github.io/talks/building-fast-static-sites/"/>
+        <id>https://cielbird.github.io/talks/building-fast-static-sites/</id>
+        
+        <content type="html" xml:base="https://cielbird.github.io/talks/building-fast-static-sites/">&lt;p&gt;An introduction to Zola and static site generation, demonstrating how to achieve sub-second build times and perfect Lighthouse scores.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Debugging Kernel Drivers: Tools and Techniques</title>
+        <published>2024-03-10T00:00:00+00:00</published>
+        <updated>2024-03-10T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://cielbird.github.io/talks/debugging-kernel-drivers/"/>
+        <id>https://cielbird.github.io/talks/debugging-kernel-drivers/</id>
+        
+        <content type="html" xml:base="https://cielbird.github.io/talks/debugging-kernel-drivers/">&lt;p&gt;This talk demonstrates advanced debugging workflows for kernel driver development, including live kernel debugging, crash dump analysis, and performance profiling.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Introduction to WebAssembly</title>
+        <published>2023-11-05T00:00:00+00:00</published>
+        <updated>2023-11-05T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://cielbird.github.io/talks/intro-to-webassembly/"/>
+        <id>https://cielbird.github.io/talks/intro-to-webassembly/</id>
+        
+        <content type="html" xml:base="https://cielbird.github.io/talks/intro-to-webassembly/">&lt;p&gt;A beginner-friendly introduction to WebAssembly, showing how to compile Rust code to run in the browser and achieve near-native performance for compute-intensive tasks.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Shattered</title>
+        <published>2021-06-11T00:00:00+00:00</published>
+        <updated>2021-06-11T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://cielbird.github.io/projects/shattered/"/>
+        <id>https://cielbird.github.io/projects/shattered/</id>
+        
+        <content type="html" xml:base="https://cielbird.github.io/projects/shattered/">&lt;iframe frameBorder=&quot;0&quot; src=&quot;https:&#x2F;&#x2F;itch.io&#x2F;embed&#x2F;1083181?linkback=true&quot; width=&quot;552&quot; height=&quot;167&quot;&gt;&lt;a href=&quot;https:&#x2F;&#x2F;etn-25.itch.io&#x2F;shattered&quot;&gt;Shattered by ETN, Kuroyasha, Miya Loustalot, YaBoiCielbird, Valentin Coubronne, Nathan Mercier&lt;&#x2F;a&gt;&lt;&#x2F;iframe&gt;
+&lt;p&gt;This is a video game that I developed in a team of 6 for a game jam in 2021.
+It was developed for the GMTK game jam, with the theme &lt;em&gt;&quot;Joined Together&quot;&lt;&#x2F;em&gt;.
+It was ranked #179 overall out of 5.6k submissions, landing it in the top
+3% of games submitted.&lt;&#x2F;p&gt;
+&lt;p&gt;It is developed in Unity 3D using C#. It was developed in 48 hours, and all
+additional assets are our own.&lt;&#x2F;p&gt;
+&lt;p&gt;Polished and well designed, it is a physics based platformer where the user
+gravitates towards orbs of light to pass each level.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Out Of Controls</title>
+        <published>2020-06-12T00:00:00+00:00</published>
+        <updated>2020-06-12T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://cielbird.github.io/projects/out-of-controls/"/>
+        <id>https://cielbird.github.io/projects/out-of-controls/</id>
+        
+        <content type="html" xml:base="https://cielbird.github.io/projects/out-of-controls/">&lt;iframe frameBorder=&quot;0&quot; src=&quot;https:&#x2F;&#x2F;itch.io&#x2F;embed&#x2F;697773?linkback=true&quot; width=&quot;552&quot; height=&quot;167&quot;&gt;&lt;a href=&quot;https:&#x2F;&#x2F;yaboicielbird.itch.io&#x2F;out-of-controls&quot;&gt;Out Of Controls by YaBoiCielbird, TKDR&lt;&#x2F;a&gt;&lt;&#x2F;iframe&gt;
+&lt;p&gt;This is a video game that I developed with a friend for a game jam in 2020.
+It was developed for the GMTK game jam, with the theme &lt;em&gt;&quot;Out of Control&quot;&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;It is developed in Unity 3D using C#. It was developed in 48 hours, and all
+additional assets are our own.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Outlander</title>
+        <published>2020-01-01T00:00:00+00:00</published>
+        <updated>2020-01-01T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://cielbird.github.io/projects/outlander/"/>
+        <id>https://cielbird.github.io/projects/outlander/</id>
+        
+        <content type="html" xml:base="https://cielbird.github.io/projects/outlander/"></content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Voxel Planet Demo</title>
+        <published>2019-08-20T00:00:00+00:00</published>
+        <updated>2019-08-20T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://cielbird.github.io/projects/voxel-planet/"/>
+        <id>https://cielbird.github.io/projects/voxel-planet/</id>
+        
+        <content type="html" xml:base="https://cielbird.github.io/projects/voxel-planet/"></content>
+        
+    </entry>
+</feed>
