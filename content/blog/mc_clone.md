@@ -33,7 +33,7 @@ intensive application, so Wgpu's portability was important to me.
 
 ## Mesh generation
 
-This is pretty simple and tedious code to write. Each possible 6 faces have a separate case. Nothing much interesting here. I did spend a lot of time structuring my engine for mesh generation this to be possible outside of the actual engine code. I don't want to be working with Wgpu buffer's outside my engine code!
+This is pretty simple and tedious code to write. Each possible 6 faces have a separate case. Nothing much interesting here. I did spend a lot of time structuring my engine for mesh generation this to be possible outside of the actual engine code. I don't want to be working with Wgpu buffers outside my engine code!
 
 {{ image(path="blog/mc_clone/voxel_mesh.png", alt="Voxel mesh example")}}
 
@@ -42,10 +42,12 @@ _This is what my voxel generation looks like now._
 ## Rotating blocks
 
 I wanted to have a block represent the corner of a wood log. I also wanted this orientation data 
-to be as minimal as possible. 
+to be as small as possible: so 3x3 `f32` arrays are out of the question. I also wanted to avoid 
+unnecessary floating point operations. 
 
 I wrote my own 3x3 matrix class that could only have orthonormal axis-aligned transformations. 
-In simple terms: *orientations that a block can have*. No stretching, no diagonal blocks, no warping, only 90 degree turns and flips across an axis. 
+In simple terms: *orientations that a block can have*. No stretching, no diagonal blocks, 
+no warping, only 90 degree turns and flips across an axis. 
 This meant I could save a lot on operations and memory footprint, all while using the 
 same useful matrix math. I made heavy use of the operator traits like `Mul` and `Add`.
 
@@ -72,7 +74,7 @@ This allowed me to do fun things that even Minecraft doesn't do like:
 
 {{ image(path="blog/mc_clone/voxels_rotated.png", alt="Voxels Rotated Example")}}
 
-_This block is the corner of a tree's trunk._
+_Here, I'm not rotating the mesh/model/object, I'm just changing the UV mapping of the mesh!_
 
 
 ## Collider generation
@@ -92,9 +94,9 @@ In the case of voxels, we have axis-aligned bounding boxes (AABB), which are act
 simplest kinds of collisions to check. 
 You just compare min/max coordinates along each axis to see if two boxes overlap.
 
-I started the naive way, by adding one collider for each voxel. As expected, it was slow. Less than 1 FPS
-with a couple thousand voxels. I knew I could optimize the algorithm to merge voxels. If i have a 
-3x3x3 solid block of voxels, I can have one AABB collider instead of 27.
+I started the naive way, by adding one collider for each voxel. As expected, it was slow. Less 
+than 1 FPS with a couple thousand voxels. I knew I could optimize the algorithm to merge voxels. 
+If I have a 3x3x3 solid block of voxels, I can have one AABB collider instead of 27.
 
 The actual solution to finding the true minimum number of boxes is NP-hard. But we can use a good
 greedy solution to get reasonable gains.
@@ -103,4 +105,10 @@ This was a very contained optimization so I decided to give the problem to AI. I
 solution that was written as I wanted it (*always* check your AI's work). 
 
 And best of all: I went 
-from about 1 FPS to a solid 20 FPS. Adding compilation optimizations, I had a smooth >60 FPS. Thanks Chat!
+from about 1 FPS to a solid 20 FPS. Adding compilation optimizations, I had a smooth >60 FPS. 
+Thanks Chat!
+
+I still have many, many optimizations to add to my engine, and my future blogs will be about those.
+Two that come to mind now are:
+- Caching important components like Transforms, Models, and Colliders
+- Organizing colliders in faster structures (bounding volume hierarchy, specifically)
