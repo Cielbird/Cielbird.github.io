@@ -29,11 +29,11 @@ window handling, and [cgmath](https://docs.rs/cgmath/latest/cgmath/) for vector 
 
 I could have made a backend that uses Vulcan, if I wanted peak efficiency. But I sometimes use a 
 Mac, so being cross-platform was important to me. Also, Minecraft isn't a particularly GPU 
-intensive application, so wgpu's portability was important to me.
+intensive application, so Wgpu's portability was important to me.
 
 ## Mesh generation
 
-This is pretty simple and tedious code to write. Each possible 6 faces have a separate case. Nothing much interesting here. I did spend a lot of time structuring my engine for mesh generation this to be possible outside of the actual engine code. I don't want to be working with wgpu buffer's outside my engine code!
+This is pretty simple and tedious code to write. Each possible 6 faces have a separate case. Nothing much interesting here. I did spend a lot of time structuring my engine for mesh generation this to be possible outside of the actual engine code. I don't want to be working with Wgpu buffer's outside my engine code!
 
 {{ image(path="blog/mc_clone/voxel_mesh.png", alt="Voxel mesh example")}}
 
@@ -45,8 +45,7 @@ I wanted to have a block represent the corner of a wood log. I also wanted this 
 to be as minimal as possible. 
 
 I wrote my own 3x3 matrix class that could only have orthonormal axis-aligned transformations. 
-In simple terms: *orientations that a block can have*. No stretching, no diagonal blocks, 
-no warping, only 90 degree turns and flips acros an axis. 
+In simple terms: *orientations that a block can have*. No stretching, no diagonal blocks, no warping, only 90 degree turns and flips across an axis. 
 This meant I could save a lot on operations and memory footprint, all while using the 
 same useful matrix math. I made heavy use of the operator traits like `Mul` and `Add`.
 
@@ -69,7 +68,7 @@ pub struct VoxelTransform {
 Using matrices for this allowed me to apply these transformations to the UV coordinates I picked
 for each block face, so I could rotate UV coordinates as needed if a block was rotated.
 
-This allowed me to do fun things that even Micraft doesn't do like:
+This allowed me to do fun things that even Minecraft doesn't do like:
 
 {{ image(path="blog/mc_clone/voxels_rotated.png", alt="Voxels Rotated Example")}}
 
@@ -93,7 +92,7 @@ In the case of voxels, we have axis-aligned bounding boxes (AABB), which are act
 simplest kinds of collisions to check. 
 You just compare min/max coordinates along each axis to see if two boxes overlap.
 
-I started the naive way: add one collider for each voxel. as expected, it was slow: less than 1 FPS
+I started the naive way, by adding one collider for each voxel. As expected, it was slow. Less than 1 FPS
 with a couple thousand voxels. I knew I could optimize the algorithm to merge voxels. If i have a 
 3x3x3 solid block of voxels, I can have one AABB collider instead of 27.
 
@@ -101,7 +100,7 @@ The actual solution to finding the true minimum number of boxes is NP-hard. But 
 greedy solution to get reasonable gains.
 
 This was a very contained optimization so I decided to give the problem to AI. It spat out a
-solution that was writen as I wanted it (*always* check your AI's work). 
+solution that was written as I wanted it (*always* check your AI's work). 
 
 And best of all: I went 
-from about 1 FPS to a solid 20 FPS. Adding compilation optimisations, I had a smooth >60 FPS. Thanks Chat!
+from about 1 FPS to a solid 20 FPS. Adding compilation optimizations, I had a smooth >60 FPS. Thanks Chat!
