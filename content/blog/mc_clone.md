@@ -41,9 +41,11 @@ _This is what my voxel generation looks like now._
 
 ## Rotating blocks
 
-I wanted to have a block represent the corner of a wood log. I also wanted this orientation data 
-to be as small as possible: so 3x3 `f32` arrays are out of the question. I also wanted to avoid 
-unnecessary floating point operations. 
+I wanted to have a block represent the corner of a wood log. I also wanted to be able to rotate or 
+flip these blocks any way possible. Mathematically, this could be represented by a 3x3 
+transformation matrix.
+I also wanted this orientation data to be as small as possible: so 3x3 `f32` arrays are out of the 
+question. I also wanted to avoid unnecessary floating point operations. 
 
 I wrote my own 3x3 matrix class that could only have orthonormal axis-aligned transformations. 
 In simple terms: *orientations that a block can have*. No stretching, no diagonal blocks, 
@@ -70,11 +72,12 @@ pub struct VoxelTransform {
 Using matrices for this allowed me to apply these transformations to the UV coordinates I picked
 for each block face, so I could rotate UV coordinates as needed if a block was rotated.
 
-This allowed me to do fun things that even Minecraft doesn't do like:
+This allowed me to do fun things that even Minecraft doesn't do, for example:
 
 {{ image(path="blog/mc_clone/voxels_rotated.png", alt="Voxels Rotated Example")}}
 
-_Here, I'm not rotating the mesh/model/object, I'm just changing the UV mapping of the mesh!_
+_Here, I'm not rotating the voxel model (actually, they're all part of the same model),_
+_I'm just changing the UV mapping of the mesh!_
 
 
 ## Collider generation
@@ -86,7 +89,7 @@ Collision is a really heavy task to calculate, especially when it needs to be do
 second. Some questions you need to ask to have a faster algo:
 
 - Is my collider concave or convex?
-  - With convex colliders, you can use known algorithms like the separating axis theorem
+  - With convex colliders, you can use the separating axis theorem
 - Does my collider have a certain shape?
   - Spheres are very simple to check
 
@@ -102,9 +105,7 @@ The actual solution to finding the true minimum number of boxes is NP-hard. But 
 greedy solution to get reasonable gains.
 
 This was a very contained optimization so I decided to give the problem to AI. It spat out a
-solution that was written as I wanted it (*always* check your AI's work). 
-
-And best of all: I went 
+solution that was written as I wanted it (*always* check your AI's work). And best of all: I went 
 from about 1 FPS to a solid 20 FPS. Adding compilation optimizations, I had a smooth >60 FPS. 
 Thanks Chat!
 
@@ -112,3 +113,5 @@ I still have many, many optimizations to add to my engine, and my future blogs w
 Two that come to mind now are:
 - Caching important components like Transforms, Models, and Colliders
 - Organizing colliders in faster structures (bounding volume hierarchy, specifically)
+
+Stay tuned!
