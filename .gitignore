@@ -1,9 +1,5 @@
 public/
 dist/
-.lighthouseci/
-
-node_modules/
-npm-debug.log*
 
 # IDE
 .vscode/
