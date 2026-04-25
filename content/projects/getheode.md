@@ -9,3 +9,6 @@ github = "https://github.com/Cielbird/getheode"
 [taxonomies]
 tags = ["rust", "linguistics"]
 +++
+
+Blog posts :
+- [Modeling phonology](@/blog/modeling_phonology.md)
