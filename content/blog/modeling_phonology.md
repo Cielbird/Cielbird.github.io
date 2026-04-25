@@ -142,7 +142,7 @@ strictly than they should, which I'll talk about in a different post.
 
 ## Conclusion
 
-The project's page is [here](@/projects/getheode.md). Most rules are applied correctly.
+The project's page is [here](@/projects/getheode/index.md). Most rules are applied correctly.
 
 I will make a WASM web demo soon.
 

@@ -4,6 +4,7 @@ description = "A phonetics engine for creative linguistics projects, written in 
 date = 2025-01-01
 
 [extra]
+image = "rules.png"
 github = "https://github.com/Cielbird/getheode"
 
 [taxonomies]
