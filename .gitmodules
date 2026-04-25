@@ -1,4 +1,3 @@
-[submodule "themes/apollo_x"]
-	path = themes/apollo_x
-	# url = ../apollo_x/
-	url = https://github.com/cielbird/apollo_x.git
+[submodule "themes/folio"]
+	path = themes/folio
+	url = https://github.com/cielbird/folio.git

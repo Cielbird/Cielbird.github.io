@@ -10,11 +10,6 @@ tags=["ai", "rust"]
 comment = true
 +++
 
-{{ 
-    note(header="Note", 
-    body="This post was originally written at the end of an internship. I haven't gotten to re-writing it for my blog, so it may read a little weird.") 
-}}
-
 # Introduction
 
 AI models and their training data are big. Training an AI model on only one GPU can become slow, and many models don't even fit on one single GPU. Many techniques exist to manage the memory and speed limitations of modern models. These techniques have unlocked many of the impressive advances in machine learning we see today. These training and inference techniques all depend on basic building blocks of collective communications called _collective operations_.

@@ -1,40 +1,41 @@
 base_url = "https://cielbird.github.io"
 title = "cielbird"
+description = "blog & portfolio"
+default_language = "en"
+theme = "folio"
+compile_sass = true
 build_search_index = true
 generate_feeds = true
-compile_sass = true
-minify_html = true
-taxonomies = [{ name = "tags" }]
-
-# for apollo theme's config options:
-# https://github.com/not-matthias/apollo/blob/main/config.toml
-theme = "apollo_x"
-
-[extra]
-socials = [
-  { name = "linkedin", url = "https://www.linkedin.com/in/guilhemane/", icon = "linkedin" },
-  { name = "github", url = "https://github.com/cielbird/", icon = "github" },
-  { name = "email", url = "mailto:guilhem.ane3@gmail.com", icon = "email" },
-]
-menu = [
-  { name = "/blog", url = "/blog", weight = 1 },
-  { name = "/projects", url = "/projects", weight = 2 },
-  { name = "/about", url = "/about", weight = 3 },
-  { name = "/tags", url = "/tags", weight = 4 },
-]
-toc = true
-theme = "toggle" # dark/light mode
-fancy_code = true
-dynamic_note = true
-mathjax = true
-mathjax_dollar_inline_enable = true
-
-logo = "logo.jpg"
+feed_filenames = ["atom.xml"]
 
 [markdown]
 highlight_code = true
-highlight_theme = "css"
-highlight_themes_css = [
-  { theme = "ayu-dark", filename = "syntax-theme-dark.css" },
-  { theme = "ayu-light", filename = "syntax-theme-light.css" },
-]
+highlight_theme = "gruvbox-dark"
+external_links_target_blank = true
+smart_punctuation = false
+
+[[taxonomies]]
+name = "tags"
+feed = true
+paginate_by = 10
+
+[extra]
+author = "cielbird"
+logo = "/logo.jpg"
+github = "https://github.com/cielbird"
+
+[[extra.nav]]
+name = "Blog"
+url = "/blog"
+
+[[extra.nav]]
+name = "Projects"
+url = "/projects"
+
+[[extra.nav]]
+name = "Tags"
+url = "/tags"
+
+[[extra.nav]]
+name = "About"
+url = "/about"

@@ -1,10 +1,7 @@
 +++
-paginate_by = 32
 title = "Blog"
+description = ""
 sort_by = "date"
-
-insert_anchor_links = "heading"
-
-[extra]
-comment = true
+template = "blog/section.html"
+page_template = "blog/page.html"
 +++
