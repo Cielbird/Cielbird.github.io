@@ -1,6 +1,6 @@
 +++
 title = "Modeling a conlang's phonology"
-date = "2026-01-15"
+date = "2026-04-25"
 
 [taxonomies]
 tags=["rust", "games"]
@@ -134,9 +134,15 @@ Here, we want two vowels (V) that are the same (both have _0) that surround a gl
 
 Under this sound change, [aʔaʔila] becomes [aːʔila].
 
+## The largest issue
+
+Many sound change rules ignore syllable and word boundaries. However, a rule's output cannot be 
+ambiguous, and it cannot be easily inferred. So, this means that some rules are interpreted more 
+strictly than they should, which I'll talk about in a different post. 
+
 ## Conclusion
 
-The project's page is [here](@/projects/getheode.md)
+The project's page is [here](@/projects/getheode.md). Most rules are applied correctly.
 
 I will make a WASM web demo soon.
 
