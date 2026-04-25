@@ -3,7 +3,7 @@ title = "Modeling a conlang's phonology"
 date = "2026-04-25"
 
 [taxonomies]
-tags=["rust", "games"]
+tags=["rust", "linguistics"]
 
 [extra]
 comment = true
