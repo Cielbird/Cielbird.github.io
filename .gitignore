@@ -2,6 +2,10 @@ public/
 static/
 dist/
 
+# Rust/WASM build artifacts
+demos/**/target/
+demos/**/pkg/
+
 # IDE
 .vscode/
 .idea/
