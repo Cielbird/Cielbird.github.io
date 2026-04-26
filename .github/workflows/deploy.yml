@@ -17,10 +17,31 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v6.0.1
         with:
           submodules: recursive
+
+      - name: Install Rust wasm32 target
+        run: rustup target add wasm32-unknown-unknown
+
+      - name: Install wasm-pack
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+      - name: Cache Cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            demos/getheode-demo/target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('demos/getheode-demo/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-
+
+      - name: Build WASM demos
+        env:
+          RUSTFLAGS: '--cfg getrandom_backend="wasm_js"'
+        run: bash demos/getheode-demo/build.sh
 
       - name: Build Zola + upload Pages artifact
         uses: getzola/github-pages@066755243e69f508fd1a74739fbf1a65f656c790

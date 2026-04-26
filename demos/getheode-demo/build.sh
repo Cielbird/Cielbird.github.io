@@ -3,7 +3,7 @@ set -e
 
 DEMO_DIR="$(cd "$(dirname "$0")" && pwd)"
 SITE_ROOT="$(cd "$DEMO_DIR/../.." && pwd)"
-OUT="$SITE_ROOT/static/demos/hello-wasm"
+OUT="$SITE_ROOT/static/demos/getheode-demo"
 
 cd "$DEMO_DIR"
 wasm-pack build --target web --out-dir pkg
