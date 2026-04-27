@@ -23,6 +23,7 @@ paginate_by = 10
 author = "cielbird"
 logo = "/logo.jpg"
 github = "https://github.com/cielbird"
+email = "guilhem.ane@proton.me"
 
 [[extra.nav]]
 name = "Blog"
