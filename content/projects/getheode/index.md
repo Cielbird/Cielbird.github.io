@@ -11,8 +11,6 @@ github = "https://github.com/Cielbird/getheode"
 tags = ["rust", "wasm", "linguistics"]
 +++
 
-Here is all the information about my linguistics project: Geþeode
-
 ## Blogs
 - [Modeling phonology](@/blog/modeling_phonology.md)
 
