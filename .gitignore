@@ -1,5 +1,6 @@
 public/
-static/
+static/demos/
+static/processed_images/
 dist/
 
 # Rust/WASM build artifacts
