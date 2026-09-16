@@ -3,7 +3,7 @@ title = "Claude Code's innards"
 date = "2026-09-16"  
 
 [taxonomies]
-tags=["rust"]
+tags=["rant"]
 +++
 
 I don't like JavaScript. And I'm not alone, I've found this is a common sentiment among many of my 
@@ -47,7 +47,7 @@ Plus, these systems languages would offer much better performance, so they'd be 
 engineering design choice. 
 
 > Not to mention it's a huge anti-advertisement for Anthropic's product. 
-> You LLM is only capable of coding correctly in JS ?!
+> Your LLM is only capable of coding correctly in JS ?!
 
 It's absurd reasoning, and because of that, I think there's a deeper reason for using JS. 
 
