@@ -2,6 +2,8 @@ public/
 static/demos/
 static/processed_images/
 dist/
+# unpublished blogs
+archived/
 
 # Rust/WASM build artifacts
 demos/**/target/
